@@ -2,6 +2,8 @@
 using AutoMapper;
 using AutoMapper.Extensions.ExpressionMapping;
 using Infrastructure;
+using Infrastructure.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.DependecyInjection.Modules
 {
@@ -32,11 +34,11 @@ namespace WebApi.DependecyInjection.Modules
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
-            //if (!string.IsNullOrEmpty(connection))
-            //{
-            //    using Context context = new Context();
-            //    context.Database.Migrate();
-            //}
+            if (!string.IsNullOrEmpty(connection))
+            {
+                using ExchangeContext context = new ExchangeContext();
+                context.Database.Migrate();
+            }
         }
 
         private void RegisterMapper(ContainerBuilder builder)

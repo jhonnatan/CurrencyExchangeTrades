@@ -6,7 +6,7 @@ namespace Infrastructure.Mapper
     {
         public MapperProfile()
         {
-            //CreateMap<Log, Database.Entities.Logs.Log>().ReverseMap();
+            CreateMap<Domain.ExchangeTrades.ExchangeTrade, DataAccess.Entities.ExchangeTrade>().ReverseMap();
         }
     }
 }
