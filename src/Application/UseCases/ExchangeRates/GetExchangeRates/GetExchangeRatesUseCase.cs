@@ -15,7 +15,7 @@ namespace Application.UseCases.ExchangeRates.GetExchangeRates
             this._currencyRatesService = currencyRatesService;
         }
         public async Task Execute(GetExchangeRatesUseCaseInput input)
-        {
+        {            
             var latestRates = await _currencyRatesService.GetLatestRates(input.CurrencyFrom, input.CurrenciesTo);
             if (latestRates == null || latestRates.Success == false)
             {                

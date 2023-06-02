@@ -1,5 +1,6 @@
 ﻿using Application.Services;
 using Domain.ExchangeRates.Dtos;
+using Microsoft.Extensions.Caching.Memory;
 using System.Net.Http.Json;
 
 namespace Infrastructure.Services.CurrencyRates
@@ -7,11 +8,16 @@ namespace Infrastructure.Services.CurrencyRates
     public class CurrencyRatesService : ICurrencyRatesService
     {
         public const string HttpClientName = "Fixer";
-        private readonly IHttpClientFactory _httpClientFactory;        
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMemoryCache _cache;
+        private string? baseUrl;
+        private string? latestEndpoint;
+        private string? accessKey;
 
-        public CurrencyRatesService(IHttpClientFactory httpClientFactory)
+        public CurrencyRatesService(IHttpClientFactory httpClientFactory, IMemoryCache cache)
         {
-            _httpClientFactory = httpClientFactory;            
+            _httpClientFactory = httpClientFactory;
+            this._cache = cache;
         }
 
         /// <summary>
@@ -22,11 +28,11 @@ namespace Infrastructure.Services.CurrencyRates
         /// <returns>RateLatest</returns>
         public async Task<LatestRates?> GetLatestRates(string currencyFrom, List<string> currenciesTo)
         {
-            var baseUrl = Environment.GetEnvironmentVariable("EXCHANGE_BASE_URL");
-            var latestEndpoint = Environment.GetEnvironmentVariable("EXCHANGE_LATEST_ENDPOINT");
-            var accessKey = Environment.GetEnvironmentVariable("EXCHANGE_ACCESS_KEY");
-
-            CheckExchangeServiceVariables(baseUrl, latestEndpoint, accessKey);
+            var cacheKey = $"{currencyFrom}->{string.Join(",",currenciesTo)}";
+            if (_cache.TryGetValue(cacheKey, out LatestRates? latestRatesCache))
+                return latestRatesCache;
+            
+            CheckExchangeServiceVariables();
 
             HttpClient httpClient = this._httpClientFactory.CreateClient(HttpClientName);
             Uri requestUri = new Uri(
@@ -39,16 +45,34 @@ namespace Infrastructure.Services.CurrencyRates
             HttpResponseMessage response = await httpClient.GetAsync(requestUri).ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<LatestRates>();
+            var latestRates = await response.Content.ReadFromJsonAsync<LatestRates>();
+
+            SetResultInCache(cacheKey, latestRates);            
+
+            return latestRates;
+        }        
+
+        private void SetResultInCache(string cacheKey, LatestRates? latestRates)
+        {
+            var cacheEntryOptions = new MemoryCacheEntryOptions()                
+                .SetSlidingExpiration(TimeSpan.FromMinutes(1))
+                .SetAbsoluteExpiration(TimeSpan.FromMinutes(30))
+                .SetPriority(CacheItemPriority.Normal);
+
+            _cache.Set(cacheKey, latestRates, cacheEntryOptions);
         }
 
-        private static void CheckExchangeServiceVariables(string? baseUrl, string? latestEndpoint, string? accessKey)
+        private void CheckExchangeServiceVariables()
         {
+            baseUrl = Environment.GetEnvironmentVariable("EXCHANGE_BASE_URL");
+            latestEndpoint = Environment.GetEnvironmentVariable("EXCHANGE_LATEST_ENDPOINT");
+            accessKey = Environment.GetEnvironmentVariable("EXCHANGE_ACCESS_KEY");
+
             if (string.IsNullOrEmpty(baseUrl)
                 || string.IsNullOrEmpty(latestEndpoint)
                 || string.IsNullOrEmpty(accessKey))
             {
-                throw new ConfigurationValueMissingException("EXCHANGE_BASE_URL or EXCHANGE_LATEST_ENDPOINT or EXCHANGE_ACCESS_KEY is missing.");
+                throw new ConfigurationValueMissingException("EXCHANGE_BASE_URL or EXCHANGE_LATEST_ENDPOINT or EXCHANGE_ACCESS_KEY are missing.");
             }
         }
     }

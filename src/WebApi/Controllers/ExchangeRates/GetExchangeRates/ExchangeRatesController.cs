@@ -1,6 +1,7 @@
 ﻿using Application.UseCases.ExchangeRates.GetExchangeRates;
 using Domain.ExchangeRates.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using WebApi.Controllers.ExchangeRates.GetExchangeRates;
 
@@ -29,6 +30,7 @@ namespace WebApi.Controllers.ExchangeRates.GetExchangeRate
         public async Task<IActionResult> Get([FromQuery] ExchangeRatesRequest request)
         {
             _logger.LogInformation($"Get exchange rates Requested at {DateTime.UtcNow} - Request: {JsonConvert.SerializeObject(request)}");
+            IMemoryCache x;
 
             var input = new GetExchangeRatesUseCaseInput(request.CurrencyFrom, request.CurrenciesTo);
             await _getExchangeRatesUseCase.Execute(input);
