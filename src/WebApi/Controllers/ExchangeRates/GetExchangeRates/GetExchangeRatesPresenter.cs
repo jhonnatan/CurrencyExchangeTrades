@@ -24,8 +24,14 @@ namespace WebApi.Controllers.ExchangeRates.GetExchangeRates
 
         public void Standard(GetExchangeRatesOutput output)
         {
-            var response = new ExchangeRatesResponse(output.LatestRates);
+            ExchangeRatesResponse response = new(
+                output.LatestRates.Success,
+                output.LatestRates.Timestamp,
+                output.LatestRates.Base,
+                output.LatestRates.Date,
+                output.LatestRates.Rates);
             ViewModel = new OkObjectResult(response);
         }
+        
     }
 }

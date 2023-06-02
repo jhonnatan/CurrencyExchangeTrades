@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+  currency-exchange-trades-webapi:  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    env_file:
+      - env/common.env
+      - env/services.env
+      - env/connections.env
+    ports:
+      - 5001:80
+      - 5002:443 
+    depends_on:
+      - currency-exchange-trades-database
+    networks:
+      - currency-exchange-trades-network
+
+    #environment:
+    #  - ASPNETCORE_ENVIRONMENT=Development
+    #  - ASPNETCORE_URLS=https://+:443;http://+:80
+    #ports:
+    #  - "80"
+    #  - "443"
+    #volumes:
+    #  - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    #  - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+ 
+  currency-exchange-trades-database:
+    image: postgres
+    restart: always
+    environment:  
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=CurrencyExchangeTrades
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - currency-exchange-trades-network
+
+volumes:
+  pgdata:
+
+networks:
+  currency-exchange-trades-network:

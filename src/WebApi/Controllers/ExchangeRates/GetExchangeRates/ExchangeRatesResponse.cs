@@ -1,14 +1,27 @@
 ﻿using Domain.ExchangeRates.Dtos;
+using System.Text.Json.Serialization;
 
 namespace WebApi.Controllers.ExchangeRates.GetExchangeRate
 {
     public class ExchangeRatesResponse
-    {
-        public LatestRates LatestRates { get; private set; }
+    {        
+        public bool Success { get; private set; }
+     
+        public int Timestamp { get; private set; }
 
-        public ExchangeRatesResponse(LatestRates latestRates)
+        public string Base { get; private set; }
+
+        public string Date { get; private set; }
+        
+        public Dictionary<string, decimal> Rates { get; private set; }
+
+        public ExchangeRatesResponse(bool success, int timestamp, string @base, string date, Dictionary<string, decimal> rates)
         {
-            LatestRates = latestRates;
+            Success = success;
+            Timestamp = timestamp;
+            Base = @base;
+            Date = date;
+            Rates = rates;
         }
     }
 }

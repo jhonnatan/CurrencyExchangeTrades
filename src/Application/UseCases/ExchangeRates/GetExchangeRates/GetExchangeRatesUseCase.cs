@@ -17,9 +17,9 @@ namespace Application.UseCases.ExchangeRates.GetExchangeRates
         public async Task Execute(GetExchangeRatesUseCaseInput input)
         {
             var latestRates = await _currencyRatesService.GetLatestRates(input.CurrencyFrom, input.CurrenciesTo);
-            if (latestRates == null)
+            if (latestRates == null || latestRates.Success == false)
             {                
-                _outputPort.NotFound("Currency rates Not Found. Check if the symbols are correct.");
+                _outputPort.NotFound("Currency rates Not Found. Check entered currencies symbols are correct.");
                 return;
             }
 

@@ -22,18 +22,34 @@ namespace Infrastructure.Services.CurrencyRates
         /// <returns>RateLatest</returns>
         public async Task<LatestRates?> GetLatestRates(string currencyFrom, List<string> currenciesTo)
         {
+            var baseUrl = Environment.GetEnvironmentVariable("EXCHANGE_BASE_URL");
+            var latestEndpoint = Environment.GetEnvironmentVariable("EXCHANGE_LATEST_ENDPOINT");
+            var accessKey = Environment.GetEnvironmentVariable("EXCHANGE_ACCESS_KEY");
+
+            CheckExchangeServiceVariables(baseUrl, latestEndpoint, accessKey);
+
             HttpClient httpClient = this._httpClientFactory.CreateClient(HttpClientName);
             Uri requestUri = new Uri(
-                $"{Environment.GetEnvironmentVariable("EXCHANGE_URL_BASE")}" +
-                $"{Environment.GetEnvironmentVariable("EXCHANGE_LATEST_ENDPOINT")}" +
-                $"?access_key={Environment.GetEnvironmentVariable("EXCHANGE_ACCESS_KEY")}" +
+                $"{baseUrl}" +
+                $"{latestEndpoint}" +
+                $"?access_key={accessKey}" +
                 $"&base={currencyFrom}" +
                 $"&symbols={string.Join(",", currenciesTo)}");
 
             HttpResponseMessage response = await httpClient.GetAsync(requestUri).ConfigureAwait(false);
 
-            response.EnsureSuccessStatusCode();            
+            response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<LatestRates>();
+        }
+
+        private static void CheckExchangeServiceVariables(string? baseUrl, string? latestEndpoint, string? accessKey)
+        {
+            if (string.IsNullOrEmpty(baseUrl)
+                || string.IsNullOrEmpty(latestEndpoint)
+                || string.IsNullOrEmpty(accessKey))
+            {
+                throw new ConfigurationValueMissingException("EXCHANGE_BASE_URL or EXCHANGE_LATEST_ENDPOINT or EXCHANGE_ACCESS_KEY is missing.");
+            }
         }
     }
 }

@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  currency-exchange-trades-webapi:
+    image: ${DOCKER_REGISTRY-}currency-exchange-trades-webapi
+    build:
+      context: .
+      dockerfile: src/WebApi/Dockerfile
+    networks:
+      - currency-exchange-trades-network
+
+networks:
+  currency-exchange-trades-network:
