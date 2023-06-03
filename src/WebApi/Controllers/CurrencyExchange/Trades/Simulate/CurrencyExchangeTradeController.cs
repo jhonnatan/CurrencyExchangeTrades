@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.UseCases.CurrencyExchange.Trades.Simulate;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.CurrencyExchange.Trades.Simulate
 {
@@ -7,15 +8,15 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.Simulate
     public class CurrencyExchangeTradeController : ControllerBase
     {
         private readonly ILogger<CurrencyExchangeTradeController> _logger;
-        // private readonly ICreateTradeUseCase _createTradeUseCase;
+        private readonly ISimulateTradeUseCase _simulateTradeUseCase;        
         private readonly SimulateTradePresenter _presenter;
 
         public CurrencyExchangeTradeController(ILogger<CurrencyExchangeTradeController> logger,
-            // ICreateTradeUseCase createTradeUseCase,
+            ISimulateTradeUseCase simulateTradeUseCase,
             SimulateTradePresenter presenter)
         {
             this._logger = logger;
-            //this._createTradeUseCase = createTradeUseCase;
+            this._simulateTradeUseCase = simulateTradeUseCase;            
             this._presenter = presenter;
         }
 
@@ -26,7 +27,8 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.Simulate
         {
             _logger.LogInformation($"SimulateTrade Requested at {DateTime.UtcNow}");
 
-            //await _createTradeUseCase.Execute(new CreateTradeUseCaseInput(model));
+            var input = new SimulateTradeUseCaseInput(request.CurrencyFrom, request.CurrencyTo, request.Amount);
+            await _simulateTradeUseCase.Execute(input);
             return _presenter.ViewModel;
         }
     }

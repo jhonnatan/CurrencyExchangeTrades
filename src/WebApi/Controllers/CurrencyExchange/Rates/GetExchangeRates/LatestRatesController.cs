@@ -1,5 +1,5 @@
 ﻿using Application.UseCases.CurrencyExchange.Rates.GetExchangeRates;
-using Domain.CurrencyExchange.Rates.Dtos;
+using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

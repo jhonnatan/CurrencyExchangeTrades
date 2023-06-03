@@ -1,4 +1,4 @@
-﻿using Domain.CurrencyExchange.Trades;
+﻿using Domain.CurrencyExchange;
 
 namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade
 {

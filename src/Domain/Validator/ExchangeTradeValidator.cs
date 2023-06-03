@@ -1,4 +1,4 @@
-﻿using Domain.CurrencyExchange.Trades;
+﻿using Domain.CurrencyExchange;
 using FluentValidation;
 
 namespace Domain.Validator

@@ -2,11 +2,11 @@
 {
     public class SimulateTradeResponse
     {        
-        public decimal AmountConverted { get; private set; }
+        public decimal ConvertedAmount { get; private set; }
 
-        public SimulateTradeResponse(decimal amountConverted)
+        public SimulateTradeResponse(decimal convertedAmount)
         {
-            AmountConverted = amountConverted;
+            ConvertedAmount = convertedAmount;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Domain.CurrencyExchange.Trades;
+﻿using Domain.CurrencyExchange;
 using Domain.Repositories.Command;
 using Infrastructure.DataAccess.Repositories.Base;
 

@@ -1,5 +1,5 @@
 ﻿using Application.UseCases.CurrencyExchange.Trades.CreateTrade;
-using Domain.CurrencyExchange.Trades;
+using Domain.CurrencyExchange;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.CurrencyExchange.Trades.CreateTrade

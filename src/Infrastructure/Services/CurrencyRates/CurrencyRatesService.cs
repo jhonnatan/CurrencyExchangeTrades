@@ -1,5 +1,5 @@
 ﻿using Application.Services;
-using Domain.CurrencyExchange.Rates.Dtos;
+using Domain.Dtos;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net.Http.Json;
 

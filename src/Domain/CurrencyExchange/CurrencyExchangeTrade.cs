@@ -1,6 +1,6 @@
 ﻿using Domain.Validator;
 
-namespace Domain.CurrencyExchange.Trades
+namespace Domain.CurrencyExchange
 {
     public class CurrencyExchangeTrade : Entity
     {

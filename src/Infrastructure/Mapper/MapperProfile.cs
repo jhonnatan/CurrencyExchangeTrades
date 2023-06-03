@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain.CurrencyExchange.Trades;
+using Domain.CurrencyExchange;
 
 namespace Infrastructure.Mapper
 {

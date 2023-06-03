@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Dapper;
-using Domain.CurrencyExchange.Trades;
+using Domain.CurrencyExchange;
 using Domain.Repositories.Query;
 using Infrastructure.DataAccess.Repositories.Base;
 using System.Data;

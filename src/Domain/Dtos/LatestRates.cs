@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Domain.CurrencyExchange.Rates.Dtos
+namespace Domain.Dtos
 {
     public class LatestRates
     {
