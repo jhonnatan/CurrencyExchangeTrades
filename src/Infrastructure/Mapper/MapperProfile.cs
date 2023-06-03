@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.CurrencyExchange.Trades;
 
 namespace Infrastructure.Mapper
 {
@@ -6,7 +7,7 @@ namespace Infrastructure.Mapper
     {
         public MapperProfile()
         {
-            CreateMap<Domain.ExchangeTrades.ExchangeTrade, DataAccess.Entities.ExchangeTrade>().ReverseMap();
+            CreateMap<CurrencyExchangeTrade, DataAccess.Entities.CurrencyExchangeTrade>().ReverseMap();
         }
     }
 }

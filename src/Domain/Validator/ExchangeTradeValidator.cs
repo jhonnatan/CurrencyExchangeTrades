@@ -1,9 +1,9 @@
-﻿using Domain.ExchangeTrades;
+﻿using Domain.CurrencyExchange.Trades;
 using FluentValidation;
 
 namespace Domain.Validator
 {
-    public class ExchangeTradeValidator : AbstractValidator<ExchangeTrade>
+    public class ExchangeTradeValidator : AbstractValidator<CurrencyExchangeTrade>
     {
         public ExchangeTradeValidator()
         {

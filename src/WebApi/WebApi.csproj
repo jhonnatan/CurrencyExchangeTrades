@@ -24,4 +24,10 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\CurrencyExchange\Trades\GetAllTrades\" />
+    <Folder Include="Controllers\CurrencyExchange\Trades\GetTrade\" />
+    <Folder Include="Controllers\ExchangeRates\" />
+  </ItemGroup>
+
 </Project>

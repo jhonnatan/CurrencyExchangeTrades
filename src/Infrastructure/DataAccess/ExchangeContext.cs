@@ -7,7 +7,7 @@ namespace Infrastructure.DataAccess
 {
     public class ExchangeContext : DbContext
     {
-        public DbSet<ExchangeTrade> Customers { get; set; }
+        public DbSet<CurrencyExchangeTrade> CurrencyExchangeTrades { get; set; }
        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,7 +29,7 @@ namespace Infrastructure.DataAccess
         {
             modelBuilder.Ignore<ValidationResult>();
 
-            modelBuilder.ApplyConfiguration(new ExchangeTradeMap());
+            modelBuilder.ApplyConfiguration(new CurrencyExchangeTradeMap());
 
             base.OnModelCreating(modelBuilder);
         }

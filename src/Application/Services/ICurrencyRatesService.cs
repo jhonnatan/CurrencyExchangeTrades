@@ -1,4 +1,4 @@
-﻿using Domain.ExchangeRates.Dtos;
+﻿using Domain.CurrencyExchange.Rates.Dtos;
 
 namespace Application.Services
 {
