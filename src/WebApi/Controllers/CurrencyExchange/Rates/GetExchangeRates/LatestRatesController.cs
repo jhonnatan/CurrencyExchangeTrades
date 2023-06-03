@@ -1,22 +1,21 @@
 ﻿using Application.UseCases.CurrencyExchange.Rates.GetExchangeRates;
 using Domain.CurrencyExchange.Rates.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 
 namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CurrencyExchangeRatesController : ControllerBase
+    public class LatestRatesController : ControllerBase
     {
         private readonly IGetExchangeRatesUseCase _getExchangeRatesUseCase;
-        private readonly GeCurrencytExchangeRatesPresenter _presenter;
-        private readonly ILogger<CurrencyExchangeRatesController> _logger;
+        private readonly GetCurrencytExchangeRatesPresenter _presenter;
+        private readonly ILogger<LatestRatesController> _logger;
 
-        public CurrencyExchangeRatesController(IGetExchangeRatesUseCase getExchangeRatesUseCase,
-            GeCurrencytExchangeRatesPresenter presenter,
-            ILogger<CurrencyExchangeRatesController> logger)
+        public LatestRatesController(IGetExchangeRatesUseCase getExchangeRatesUseCase,
+            GetCurrencytExchangeRatesPresenter presenter,
+            ILogger<LatestRatesController> logger)
         {
             _getExchangeRatesUseCase = getExchangeRatesUseCase;
             _presenter = presenter;
@@ -26,10 +25,9 @@ namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
         [HttpGet]
         [ProducesResponseType(typeof(LatestRates), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get([FromQuery] CurrencyExchangeRatesRequest request)
+        public async Task<IActionResult> Get([FromQuery] GetCurrencyExchangeRatesRequest request)
         {
-            _logger.LogInformation($"Get exchange rates Requested at {DateTime.UtcNow} - Request: {JsonConvert.SerializeObject(request)}");
-            IMemoryCache x;
+            _logger.LogInformation($"Get exchange rates Requested at {DateTime.UtcNow} - Request: {JsonConvert.SerializeObject(request)}");            
 
             var input = new GetExchangeRatesUseCaseInput(request.CurrencyFrom, request.CurrenciesTo);
             await _getExchangeRatesUseCase.Execute(input);

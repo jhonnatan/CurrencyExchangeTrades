@@ -1,7 +1,6 @@
 ﻿using Application.UseCases.CurrencyExchange.Trades.CreateTrade;
 using Domain.CurrencyExchange.Trades;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace WebApi.Controllers.CurrencyExchange.Trades.CreateTrade
 {
@@ -25,9 +24,9 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.CreateTrade
         [HttpPost]
         [ProducesResponseType(typeof(CreateCurrencyExchangeTradeResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Get([FromBody] CreateCurrencyExchangeTradeRequest request)
+        public async Task<IActionResult> CreateTrade([FromBody] CreateCurrencyExchangeTradeRequest request)
         {
-            _logger.LogInformation($"Currency Exchange Trade Executed at {DateTime.UtcNow} - Request: {JsonConvert.SerializeObject(request)}");
+            _logger.LogInformation($"CreateCurrencyExchangeTrade Executed at {DateTime.UtcNow}");
 
             var model = new CurrencyExchangeTrade(
                 request.ClientId,

@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
 {
-    public class CurrencyExchangeRatesResponse
+    public class GetCurrencyExchangeRatesResponse
     {
         public bool Success { get; private set; }
 
@@ -12,7 +12,7 @@
 
         public Dictionary<string, decimal> Rates { get; private set; }
 
-        public CurrencyExchangeRatesResponse(bool success, int timestamp, string @base, string date, Dictionary<string, decimal> rates)
+        public GetCurrencyExchangeRatesResponse(bool success, int timestamp, string @base, string date, Dictionary<string, decimal> rates)
         {
             Success = success;
             Timestamp = timestamp;
