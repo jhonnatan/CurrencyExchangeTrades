@@ -2,7 +2,7 @@
 
 namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
 {
-    public class ExchangeRatesRequest
+    public class CurrencyExchangeRatesRequest
     {
         [Required]
         [RegularExpression("EUR", ErrorMessage = "CurrencyFrom must be 'EUR'. Limited License")]

@@ -41,7 +41,7 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
             }
         }
 
-        public async Task<CurrencyExchangeTrade> GetExchangeTradeByClientIdAsync(Guid clientId)
+        public async Task<IReadOnlyList<CurrencyExchangeTrade>> GetExchangeTradesByClientIdAsync(Guid clientId)
         {
             var query = "SELECT * FROM CurrencyExchangeTrades WHERE ClientId = @id";
             var parameters = new DynamicParameters();
@@ -49,8 +49,8 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
 
             using (var connection = CreateConnection())
             {
-                return _mapper.Map<CurrencyExchangeTrade>(
-                    await connection.QueryFirstOrDefaultAsync<Entities.CurrencyExchangeTrade>(query, parameters));
+                return _mapper.Map<IReadOnlyList<CurrencyExchangeTrade>>
+                    (await connection.QueryAsync<Entities.CurrencyExchangeTrade>(query));
             }
         }
 

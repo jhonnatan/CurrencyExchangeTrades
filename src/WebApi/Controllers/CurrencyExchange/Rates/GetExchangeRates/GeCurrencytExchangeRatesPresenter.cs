@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
 {
-    public class GetExchangeRatesPresenter : IOutputPort<GetExchangeRatesOutput>
+    public class GeCurrencytExchangeRatesPresenter : IOutputPort<GetExchangeRatesOutput>
     {
         public IActionResult ViewModel { get; protected set; }
 
@@ -23,7 +23,7 @@ namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
 
         public void Standard(GetExchangeRatesOutput output)
         {
-            ExchangeRatesResponse response = new(
+            CurrencyExchangeRatesResponse response = new(
                 output.LatestRates.Success,
                 output.LatestRates.Timestamp,
                 output.LatestRates.Base,

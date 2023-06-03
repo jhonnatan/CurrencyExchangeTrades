@@ -7,7 +7,7 @@ namespace Domain.Repositories.Query
     {
         Task<IReadOnlyList<CurrencyExchangeTrade>> GetAllAsync();
         Task<CurrencyExchangeTrade> GetByIdAsync(Guid id);
-        Task<CurrencyExchangeTrade> GetExchangeTradeByClientIdAsync(Guid clientId);
+        Task<IReadOnlyList<CurrencyExchangeTrade>> GetExchangeTradesByClientIdAsync(Guid clientId);
         Task<int> GetTradesCountByClientIdLastHourAsync(Guid clientId);
     }
 }

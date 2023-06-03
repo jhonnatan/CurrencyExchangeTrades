@@ -8,15 +8,15 @@ namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExchangeRatesController : ControllerBase
+    public class CurrencyExchangeRatesController : ControllerBase
     {
         private readonly IGetExchangeRatesUseCase _getExchangeRatesUseCase;
-        private readonly GetExchangeRatesPresenter _presenter;
-        private readonly ILogger<ExchangeRatesController> _logger;
+        private readonly GeCurrencytExchangeRatesPresenter _presenter;
+        private readonly ILogger<CurrencyExchangeRatesController> _logger;
 
-        public ExchangeRatesController(IGetExchangeRatesUseCase getExchangeRatesUseCase,
-            GetExchangeRatesPresenter presenter,
-            ILogger<ExchangeRatesController> logger)
+        public CurrencyExchangeRatesController(IGetExchangeRatesUseCase getExchangeRatesUseCase,
+            GeCurrencytExchangeRatesPresenter presenter,
+            ILogger<CurrencyExchangeRatesController> logger)
         {
             _getExchangeRatesUseCase = getExchangeRatesUseCase;
             _presenter = presenter;
@@ -26,7 +26,7 @@ namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
         [HttpGet]
         [ProducesResponseType(typeof(LatestRates), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get([FromQuery] ExchangeRatesRequest request)
+        public async Task<IActionResult> Get([FromQuery] CurrencyExchangeRatesRequest request)
         {
             _logger.LogInformation($"Get exchange rates Requested at {DateTime.UtcNow} - Request: {JsonConvert.SerializeObject(request)}");
             IMemoryCache x;
