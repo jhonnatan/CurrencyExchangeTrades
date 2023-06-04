@@ -26,7 +26,9 @@ namespace Application.UseCases.CurrencyExchange.Trades.Simulate
                 var latestRates = await _currencyRatesService.GetLatestRates(input.CurrencyFrom, new List<string>() { input.CurrencyTo });
                 if (latestRates == null || latestRates.Success == false)
                 {
+                    _logger.LogWarning("You have provided one or more invalid Currency Codes. [Required format: currencies=EUR,USD,GBP,...]");
                     _outputPort.NotFound("You have provided one or more invalid Currency Codes. [Required format: currencies=EUR,USD,GBP,...]");
+                    input.ErrorOccured = true;
                     return;
                 }
 

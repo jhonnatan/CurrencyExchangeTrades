@@ -14,7 +14,6 @@ namespace Domain.CurrencyExchange
         public DateTime TransactionDate { get; private set; }
         public decimal ConvertedAmount { get; private set; }
 
-        protected CurrencyExchangeTrade() { }
         public CurrencyExchangeTrade(Guid clientId, string accountId, string destinationAccountId, string from, string to, decimal amount, decimal rate, decimal convertedAmount)
         {
             Id = Guid.NewGuid();
@@ -29,6 +28,22 @@ namespace Domain.CurrencyExchange
             TransactionDate = DateTime.UtcNow;
 
             Validate(this, new ExchangeTradeValidator());
-        }        
+        }
+        public CurrencyExchangeTrade(Guid id, Guid clientId, string accountId, string destinationAccountId, string from, string to, decimal amount, decimal rate, DateTime transactionDate, decimal convertedAmount)
+        {
+            Id = id;
+            ClientId = clientId;
+            AccountId = accountId;
+            DestinationAccountId = destinationAccountId;
+            From = from;
+            To = to;
+            Amount = amount;
+            TransactionDate = transactionDate;
+            Rate = rate;
+            ConvertedAmount = convertedAmount;
+
+            Validate(this, new ExchangeTradeValidator());
+        }
+        protected CurrencyExchangeTrade() { }
     }
 }

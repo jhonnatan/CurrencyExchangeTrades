@@ -8,23 +8,14 @@ using System.Data;
 namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
 {
     public class CurrencyExchangeTradeQueryRepository : QueryRepository<CurrencyExchangeTrade>, ICurrencyExchangeTradeQueryRepository
-    {
-        private readonly IMapper _mapper;
-
-        public CurrencyExchangeTradeQueryRepository(IMapper mapper)
-        {
-            this._mapper = mapper;
-        }
+    {       
         public async Task<IReadOnlyList<CurrencyExchangeTrade>> GetAllAsync()
         {            
             var query = "SELECT * FROM \"CurrencyExchange\".\"CurrencyExchangeTrades\"";
 
             using (var connection = CreateConnection())
             {
-                var models = (await connection.QueryAsync<Entities.CurrencyExchangeTrade>(query)).ToList();
-
-                return _mapper.Map<IReadOnlyList<CurrencyExchangeTrade>>
-                    (await connection.QueryAsync<Entities.CurrencyExchangeTrade>(query));
+                return (await connection.QueryAsync<CurrencyExchangeTrade>(query)).ToList();
             }
         }
 
@@ -36,8 +27,7 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
 
             using (var connection = CreateConnection())
             {
-                return _mapper.Map<CurrencyExchangeTrade>(
-                    await connection.QueryFirstOrDefaultAsync<Entities.CurrencyExchangeTrade>(query, parameters));
+                return await connection.QueryFirstOrDefaultAsync<CurrencyExchangeTrade>(query, parameters);
             }
         }
 
@@ -49,8 +39,7 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
 
             using (var connection = CreateConnection())
             {
-                return _mapper.Map<IReadOnlyList<CurrencyExchangeTrade>>
-                    (await connection.QueryAsync<Entities.CurrencyExchangeTrade>(query, parameters));
+                return (await connection.QueryAsync<CurrencyExchangeTrade>(query, parameters)).ToList();
             }
         }
 
@@ -65,7 +54,7 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
 
             using (var connection = CreateConnection())
             {
-                return (await connection.QueryAsync<Entities.CurrencyExchangeTrade>(query, parameters)).Count();
+                return (await connection.QueryAsync<CurrencyExchangeTrade>(query, parameters)).Count();
             }
         }
     }

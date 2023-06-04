@@ -26,6 +26,7 @@ namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade.Handlers
             {
                 _outputPort.NotFound("You have provided one or more invalid Currency Codes. [Required format: currencies=EUR,USD,GBP,...]");
                 _logger.LogInformation("You have provided one or more invalid Currency Codes. [Required format: currencies=EUR,USD,GBP,...]");
+                input.ErrorOccured = true;
                 return;
             }            
 

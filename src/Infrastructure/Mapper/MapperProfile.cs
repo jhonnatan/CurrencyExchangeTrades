@@ -7,7 +7,7 @@ namespace Infrastructure.Mapper
     {
         public MapperProfile()
         {
-            CreateMap<CurrencyExchangeTrade, DataAccess.Entities.CurrencyExchangeTrade>().ReverseMap();
+            //CreateMap<CurrencyExchangeTrade, DataAccess.Entities.CurrencyExchangeTrade>().ReverseMap();
         }
     }
 }

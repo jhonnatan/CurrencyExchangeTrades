@@ -32,7 +32,9 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrade
                 output.CurrencyExchangeTrade.From,
                 output.CurrencyExchangeTrade.To,
                 output.CurrencyExchangeTrade.Amount,
-                output.CurrencyExchangeTrade.TransactionDate);
+                output.CurrencyExchangeTrade.Rate,
+                output.CurrencyExchangeTrade.TransactionDate,
+                output.CurrencyExchangeTrade.ConvertedAmount);
             ViewModel = new OkObjectResult(response);
         }
     }

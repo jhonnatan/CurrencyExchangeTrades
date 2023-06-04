@@ -13,6 +13,7 @@ namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade
         public decimal Rate { get; private set; }
         public decimal ConvertedAmount { get; private set; }
         public CurrencyExchangeTrade CurrencyExchangeTrade { get; internal set; }
+        public bool ErrorOccured { get; internal set; }
 
         public CreateTradeUseCaseInput(Guid clientId, string accountId, string destinationAccountId, string from, string to, decimal amount)
         {

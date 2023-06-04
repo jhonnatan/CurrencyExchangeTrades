@@ -36,6 +36,7 @@ namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade.Handlers
             {
                 _logger.LogError("Invalid Model. Unable to perform the transaction");
                 _outputPort.Error("Invalid Model. Unable to perform the transaction");
+                input.ErrorOccured = true;
                 return;
             }
             await _commandRepository.AddAsync(input.CurrencyExchangeTrade);

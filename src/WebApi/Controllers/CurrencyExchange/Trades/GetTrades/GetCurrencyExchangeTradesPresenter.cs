@@ -34,7 +34,9 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrades
                     f.From,
                     f.To,
                     f.Amount,
-                    f.TransactionDate)));            
+                    f.Rate,
+                    f.TransactionDate,
+                    f.ConvertedAmount)));            
             ViewModel = new OkObjectResult(trades);
         }
     }

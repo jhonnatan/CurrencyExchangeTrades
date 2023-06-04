@@ -31,6 +31,9 @@ namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade
             {
                 await _checkClientTradesLimitHandler.ProcessRequest(input);
 
+                if (input.ErrorOccured)
+                    return;
+
                 _outputPort.Standard(new CreateTradeUseCaseOutput(input.CurrencyExchangeTrade));
                 _logger.LogInformation("CreateTradeUseCase executed successfully");
             }

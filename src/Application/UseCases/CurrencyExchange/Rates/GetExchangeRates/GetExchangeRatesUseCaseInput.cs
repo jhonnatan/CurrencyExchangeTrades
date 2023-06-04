@@ -4,6 +4,7 @@
     {
         public string CurrencyFrom { get; private set; }
         public List<string> CurrenciesTo { get; private set; }
+        public bool ErrorOccured { get; internal set; }
 
         public GetExchangeRatesUseCaseInput(string currencyFrom, List<string> currenciesTo)
         {

@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Domain.CurrencyExchange;
 
 namespace Infrastructure.DataAccess.Map
 {
-    public class CurrencyExchangeTradeMap : IEntityTypeConfiguration<Entities.CurrencyExchangeTrade>
+    public class CurrencyExchangeTradeMap : IEntityTypeConfiguration<CurrencyExchangeTrade>
     {
-        public void Configure(EntityTypeBuilder<Entities.CurrencyExchangeTrade> builder)
+        public void Configure(EntityTypeBuilder<CurrencyExchangeTrade> builder)
         {
             builder.ToTable("CurrencyExchangeTrades", "CurrencyExchange");
             builder.HasKey(k => k.Id);            
@@ -18,6 +19,9 @@ namespace Infrastructure.DataAccess.Map
             builder.Property(p => p.Rate).IsRequired();
             builder.Property(p => p.TransactionDate).IsRequired();
             builder.Property(p => p.ConvertedAmount).IsRequired();
+            builder.Ignore(p => p.Invalid);
+            builder.Ignore(p => p.Valid);
+            builder.Ignore(p => p.ValidationResult);
         }
     }
 }

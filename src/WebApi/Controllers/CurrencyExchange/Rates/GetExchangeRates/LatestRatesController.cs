@@ -25,9 +25,9 @@ namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
         [HttpGet]
         [ProducesResponseType(typeof(LatestRatesResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get([FromQuery] GetCurrencyExchangeRatesRequest request)
+        public async Task<IActionResult> GetLatestRates([FromQuery] GetCurrencyExchangeRatesRequest request)
         {
-            _logger.LogInformation($"Get exchange rates Requested at {DateTime.UtcNow} - Request: {JsonConvert.SerializeObject(request)}");            
+            _logger.LogInformation($"Get exchange rates Requested at {DateTime.UtcNow} - Request: {JsonConvert.SerializeObject(request)}");
 
             var input = new GetExchangeRatesUseCaseInput(request.CurrencyFrom, request.CurrenciesTo);
             await _getExchangeRatesUseCase.Execute(input);

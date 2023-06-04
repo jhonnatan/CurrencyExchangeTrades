@@ -1,4 +1,4 @@
-﻿using Infrastructure.DataAccess.Entities;
+﻿using Domain.CurrencyExchange;
 using Infrastructure.DataAccess.Map;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;

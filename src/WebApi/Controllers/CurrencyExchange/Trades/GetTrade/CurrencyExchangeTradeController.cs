@@ -22,10 +22,9 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrade
             this._presenter = presenter;
             this._getTradeUseCase = getTradeUseCase;
         }
-        // GET api/<CurrencyExchangeTradesController>/5
+        
         [HttpGet]
-        [ProducesResponseType(typeof(CurrencyExchangeTradesResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(CurrencyExchangeTradesResponse), StatusCodes.Status200OK)]        
         public async Task<IActionResult> GetTrade([FromQuery][Required] Guid id)
         {
             _logger.LogInformation($"GetCurrencyExchangeTradeById Requested at {DateTime.UtcNow}");
