@@ -1,10 +1,6 @@
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using WebApi.DependecyInjection;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Rewrite;
-using Autofac.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 

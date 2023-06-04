@@ -20,7 +20,7 @@ namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade.Handlers
         }
         public override async Task ProcessRequest(CreateTradeUseCaseInput input)
         {            
-            var latestRates = await _currencyRatesService.GetLatestRates(input.From, new List<string>() { input.To });
+            var latestRates = _currencyRatesService.GetLatestRates(input.From, new List<string>() { input.To }).GetAwaiter().GetResult();
 
             if (latestRates == null || latestRates.Success == false)
             {

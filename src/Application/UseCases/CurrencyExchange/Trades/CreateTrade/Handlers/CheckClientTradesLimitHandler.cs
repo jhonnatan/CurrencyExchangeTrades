@@ -20,7 +20,7 @@ namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade.Handlers
         }
         public override async Task ProcessRequest(CreateTradeUseCaseInput input)
         {            
-            var count = await _queryRepository.GetTradesCountByClientIdLastHourAsync(input.CurrencyExchangeTrade.ClientId);
+            var count = await _queryRepository.GetTradesCountByClientIdLastHourAsync(input.ClientId);
             if (count > 10)
             {
                 _logger.LogError("The Client has reached the limit of 10 transactions per hour. Unable to perform the transaction.");

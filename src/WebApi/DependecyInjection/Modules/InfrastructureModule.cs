@@ -32,6 +32,7 @@ namespace WebApi.DependecyInjection.Modules
             builder.RegisterAssemblyTypes(typeof(ConfigurationValueMissingException).Assembly)
                 .Where(t => (t.Namespace ?? string.Empty).Contains("DataAccess"))
                 .AsImplementedInterfaces()
+                .AsSelf()
                 .InstancePerLifetimeScope();
 
             //if (!string.IsNullOrEmpty(connection))

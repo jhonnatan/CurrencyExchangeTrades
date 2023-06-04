@@ -15,7 +15,9 @@ namespace Infrastructure.DataAccess.Map
             builder.Property(p => p.CurrencyFrom).IsRequired().HasMaxLength(3);
             builder.Property(p => p.CurrencyTo).IsRequired().HasMaxLength(3);
             builder.Property(p => p.Amount).IsRequired();
+            builder.Property(p => p.Rate).IsRequired();
             builder.Property(p => p.TransactionDate).IsRequired();
+            builder.Property(p => p.ConvertedAmount).IsRequired();
         }
     }
 }

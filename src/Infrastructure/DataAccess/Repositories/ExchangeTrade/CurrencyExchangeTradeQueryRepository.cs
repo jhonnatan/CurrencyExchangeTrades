@@ -45,7 +45,7 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
         {
             var query = "SELECT * FROM CurrencyExchangeTrades WHERE ClientId = @id";
             var parameters = new DynamicParameters();
-            parameters.Add("ClientId", clientId, DbType.String);
+            parameters.Add("ClientId", clientId, DbType.Guid);
 
             using (var connection = CreateConnection())
             {
@@ -60,7 +60,7 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
                 "and TransactionDate BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW()";
 
             var parameters = new DynamicParameters();
-            parameters.Add("ClientId", clientId, DbType.String);
+            parameters.Add("ClientId", clientId, DbType.Guid);
 
             using (var connection = CreateConnection())
             {

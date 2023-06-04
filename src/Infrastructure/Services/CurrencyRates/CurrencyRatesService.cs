@@ -42,7 +42,7 @@ namespace Infrastructure.Services.CurrencyRates
                 $"&base={currencyFrom}" +
                 $"&symbols={string.Join(",", currenciesTo)}");
 
-            HttpResponseMessage response = await httpClient.GetAsync(requestUri).ConfigureAwait(false);
+            HttpResponseMessage response = await httpClient.GetAsync(requestUri);
 
             response.EnsureSuccessStatusCode();
             var latestRates = await response.Content.ReadFromJsonAsync<LatestRatesResponse>();
