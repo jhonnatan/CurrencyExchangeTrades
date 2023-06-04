@@ -16,8 +16,8 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
             this._mapper = mapper;
         }
         public async Task<IReadOnlyList<CurrencyExchangeTrade>> GetAllAsync()
-        {
-            var query = "SELECT * FROM CurrencyExchangeTrades";
+        {            
+            var query = "SELECT * FROM \"CurrencyExchange\".\"CurrencyExchangeTrades\"";
 
             using (var connection = CreateConnection())
             {
@@ -30,7 +30,7 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
 
         public async Task<CurrencyExchangeTrade> GetByIdAsync(Guid id)
         {
-            var query = "SELECT * FROM CurrencyExchangeTrades WHERE Id = @Id";
+            var query = "SELECT * FROM \"CurrencyExchange\".\"CurrencyExchangeTrades\" WHERE \"Id\" = @Id";
             var parameters = new DynamicParameters();
             parameters.Add("Id", id, DbType.Guid);
 
@@ -43,21 +43,22 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
 
         public async Task<IReadOnlyList<CurrencyExchangeTrade>> GetExchangeTradesByClientIdAsync(Guid clientId)
         {
-            var query = "SELECT * FROM CurrencyExchangeTrades WHERE ClientId = @id";
+            var query = "SELECT * FROM \"CurrencyExchange\".\"CurrencyExchangeTrades\" WHERE \"ClientId\" = @ClientId";
             var parameters = new DynamicParameters();
             parameters.Add("ClientId", clientId, DbType.Guid);
 
             using (var connection = CreateConnection())
             {
                 return _mapper.Map<IReadOnlyList<CurrencyExchangeTrade>>
-                    (await connection.QueryAsync<Entities.CurrencyExchangeTrade>(query));
+                    (await connection.QueryAsync<Entities.CurrencyExchangeTrade>(query, parameters));
             }
         }
 
         public async Task<int> GetTradesCountByClientIdLastHourAsync(Guid clientId)
         {
-            var query = "SELECT * FROM CurrencyExchangeTrades WHERE ClientId = @id " +
-                "and TransactionDate BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW()";
+            var query = "SELECT * FROM \"CurrencyExchange\".\"CurrencyExchangeTrades\" " +
+                "WHERE \"ClientId\" = @ClientId " +
+                "and \"TransactionDate\" BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW()";
 
             var parameters = new DynamicParameters();
             parameters.Add("ClientId", clientId, DbType.Guid);

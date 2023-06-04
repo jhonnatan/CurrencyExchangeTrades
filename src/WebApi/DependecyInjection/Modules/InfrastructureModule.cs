@@ -35,11 +35,11 @@ namespace WebApi.DependecyInjection.Modules
                 .AsSelf()
                 .InstancePerLifetimeScope();
 
-            //if (!string.IsNullOrEmpty(connection))
-            //{
-            //    using ExchangeContext context = new ExchangeContext();
-            //    context.Database.Migrate();
-            //}
+            if (!string.IsNullOrEmpty(connection))
+            {
+                using ExchangeContext context = new ExchangeContext();
+                context.Database.Migrate();
+            }
         }
 
         private void RegisterMapper(ContainerBuilder builder)

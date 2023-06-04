@@ -19,7 +19,7 @@ namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade.Handlers
             this._outputPort = outputPort;
         }
         public override async Task ProcessRequest(CreateTradeUseCaseInput input)
-        {            
+        {                        
             var count = await _queryRepository.GetTradesCountByClientIdLastHourAsync(input.ClientId);
             if (count > 10)
             {

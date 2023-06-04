@@ -6,8 +6,8 @@
         public Guid ClientId { get; set; }
         public string AccountId { get; set; }
         public string DestinationAccountId { get; set; }
-        public string CurrencyFrom { get; set; }
-        public string CurrencyTo { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
         public decimal Amount { get; set; }
         public decimal Rate { get; set; }
         public DateTime TransactionDate { get; set; }
