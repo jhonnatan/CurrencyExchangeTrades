@@ -1,5 +1,6 @@
 ﻿using Application.Boundaries;
 using Application.UseCases.CurrencyExchange.Trades.CreateTrade;
+using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.CurrencyExchange.Trades.CreateTrade
@@ -22,7 +23,10 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.CreateTrade
             => ViewModel = new NotFoundObjectResult(message);
 
         public void Standard(CreateTradeUseCaseOutput output)
-            =>  ViewModel = new OkObjectResult(output.Id);
-        
+        {
+            var query = new Query(output.Trade.From, output.Trade.To, output.Trade.Amount);
+            var response = new CreateExchangeTradeResponse(query, output.Trade.Id, output.Trade.Rate, output.Trade.TransactionDate, output.Trade.ConvertedAmount);
+            ViewModel = new OkObjectResult(response);
+        }
     }
 }

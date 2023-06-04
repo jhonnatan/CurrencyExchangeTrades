@@ -2,7 +2,7 @@
 
 namespace Domain.Dtos
 {
-    public class LatestRates
+    public class LatestRatesResponse
     {
         [JsonPropertyName("success")]
         public bool Success { get; set; }

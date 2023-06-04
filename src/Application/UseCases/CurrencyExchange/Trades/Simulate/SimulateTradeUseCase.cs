@@ -26,14 +26,14 @@ namespace Application.UseCases.CurrencyExchange.Trades.Simulate
                 var latestRates = await _currencyRatesService.GetLatestRates(input.CurrencyFrom, new List<string>() { input.CurrencyTo });
                 if (latestRates == null || latestRates.Success == false)
                 {
-                    _outputPort.NotFound("Currency rates Not Found. Check entered currencies symbols are correct.");
+                    _outputPort.NotFound("You have provided one or more invalid Currency Codes. [Required format: currencies=EUR,USD,GBP,...]");
                     return;
                 }
 
                 decimal destinationRate = latestRates.Rates.FirstOrDefault().Value;
-                decimal convertedAmount = destinationRate / input.Amount;
+                decimal convertedAmount = input.Amount * destinationRate;
 
-                _outputPort.Standard(new SimulateTradeUseCaseOutput(convertedAmount));
+                _outputPort.Standard(new SimulateTradeUseCaseOutput(input.CurrencyFrom, input.CurrencyTo, input.Amount, destinationRate, convertedAmount));
                 _logger.LogInformation("SimulateTradeUseCase executed successfully");
             }
             catch (Exception ex)

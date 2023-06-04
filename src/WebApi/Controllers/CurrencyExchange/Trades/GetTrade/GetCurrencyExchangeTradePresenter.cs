@@ -29,8 +29,8 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrade
                 output.CurrencyExchangeTrade.ClientId,
                 output.CurrencyExchangeTrade.AccountId,
                 output.CurrencyExchangeTrade.DestinationAccountId,
-                output.CurrencyExchangeTrade.CurrencyFrom,
-                output.CurrencyExchangeTrade.CurrencyTo,
+                output.CurrencyExchangeTrade.From,
+                output.CurrencyExchangeTrade.To,
                 output.CurrencyExchangeTrade.Amount,
                 output.CurrencyExchangeTrade.TransactionDate);
             ViewModel = new OkObjectResult(response);

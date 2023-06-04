@@ -31,8 +31,8 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrades
                     f.ClientId,
                     f.AccountId,
                     f.DestinationAccountId,
-                    f.CurrencyFrom,
-                    f.CurrencyTo,
+                    f.From,
+                    f.To,
                     f.Amount,
                     f.TransactionDate)));            
             ViewModel = new OkObjectResult(trades);

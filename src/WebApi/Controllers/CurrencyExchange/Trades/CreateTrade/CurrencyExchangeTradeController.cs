@@ -1,5 +1,5 @@
 ﻿using Application.UseCases.CurrencyExchange.Trades.CreateTrade;
-using Domain.CurrencyExchange;
+using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.CurrencyExchange.Trades.CreateTrade
@@ -22,21 +22,21 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.CreateTrade
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(CreateCurrencyExchangeTradeResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CreateExchangeTradeResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateTrade([FromBody] CreateCurrencyExchangeTradeRequest request)
         {
             _logger.LogInformation($"CreateCurrencyExchangeTrade Executed at {DateTime.UtcNow}");
 
-            var model = new CurrencyExchangeTrade(
-                request.ClientId,
-                request.AccountId,
-                request.DestinationAccountId,
-                request.CurrencyFrom,
-                request.CurrencyTo,
+            var input = new CreateTradeUseCaseInput(
+                request.Client.Id,
+                request.Client.AccountId,
+                request.Client.DestinationAccountId,
+                request.From,
+                request.To,
                 request.Amount);
-            
-            await _createTradeUseCase.Execute(new CreateTradeUseCaseInput(model));
+            await _createTradeUseCase.Execute(input);
             return _presenter.ViewModel;
         }
     }

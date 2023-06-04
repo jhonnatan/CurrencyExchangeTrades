@@ -4,9 +4,9 @@ namespace Application.UseCases.CurrencyExchange.Rates.GetExchangeRates
 {
     public class GetExchangeRatesOutput
     {
-        public LatestRates LatestRates { get; private set; }
+        public LatestRatesResponse LatestRates { get; private set; }
 
-        public GetExchangeRatesOutput(LatestRates latestRates)
+        public GetExchangeRatesOutput(LatestRatesResponse latestRates)
         {
             LatestRates = latestRates;
         }

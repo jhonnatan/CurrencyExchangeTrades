@@ -1,4 +1,5 @@
 ﻿using Application.UseCases.CurrencyExchange.Trades.Simulate;
+using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.CurrencyExchange.Trades.Simulate
@@ -20,10 +21,10 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.Simulate
             this._presenter = presenter;
         }
 
-        [HttpPost("Simulate")]
+        [HttpGet("Simulate")]
         [ProducesResponseType(typeof(SimulateTradeResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Simulate([FromBody] SimulateTradeRequest request)
+        public async Task<IActionResult> Simulate([FromQuery] SimulateTradeRequest request)
         {
             _logger.LogInformation($"SimulateTrade Requested at {DateTime.UtcNow}");
 

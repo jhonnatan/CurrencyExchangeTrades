@@ -13,15 +13,15 @@ namespace Infrastructure.DataAccess
         {
             var conn = Environment.GetEnvironmentVariable("DBCONN");
 
-            if (conn != null)
-            {
-                optionsBuilder.UseNpgsql(conn, npgsqlOptionsAction: options =>
-                {
-                    options.EnableRetryOnFailure(2, TimeSpan.FromSeconds(5), new List<string>());
-                    options.MigrationsHistoryTable("_MigrationHistory", "CurrencyExchange");
-                });
-            }
-            else            
+            //if (conn != null)
+            //{
+            //    optionsBuilder.UseNpgsql(conn, npgsqlOptionsAction: options =>
+            //    {
+            //        options.EnableRetryOnFailure(2, TimeSpan.FromSeconds(5), new List<string>());
+            //        options.MigrationsHistoryTable("_MigrationHistory", "CurrencyExchange");
+            //    });
+            //}
+            //else            
                 optionsBuilder.UseInMemoryDatabase("CurrencyExchangeInMemory");            
         }
 

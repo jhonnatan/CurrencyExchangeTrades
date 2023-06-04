@@ -26,10 +26,10 @@ namespace Infrastructure.Services.CurrencyRates
         /// <param name="currencyFrom"></param>
         /// <param name="currenciesTo"></param>
         /// <returns>RateLatest</returns>
-        public async Task<LatestRates?> GetLatestRates(string currencyFrom, List<string> currenciesTo)
+        public async Task<LatestRatesResponse?> GetLatestRates(string currencyFrom, List<string> currenciesTo)
         {
             var cacheKey = $"{currencyFrom}->{string.Join(",",currenciesTo)}";
-            if (_cache.TryGetValue(cacheKey, out LatestRates? latestRatesCache))
+            if (_cache.TryGetValue(cacheKey, out LatestRatesResponse? latestRatesCache))
                 return latestRatesCache;
             
             CheckExchangeServiceVariables();
@@ -45,14 +45,14 @@ namespace Infrastructure.Services.CurrencyRates
             HttpResponseMessage response = await httpClient.GetAsync(requestUri).ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
-            var latestRates = await response.Content.ReadFromJsonAsync<LatestRates>();
+            var latestRates = await response.Content.ReadFromJsonAsync<LatestRatesResponse>();
 
             SetResultInCache(cacheKey, latestRates);            
 
             return latestRates;
         }        
 
-        private void SetResultInCache(string cacheKey, LatestRates? latestRates)
+        private void SetResultInCache(string cacheKey, LatestRatesResponse? latestRates)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions()                
                 .SetSlidingExpiration(TimeSpan.FromMinutes(1))

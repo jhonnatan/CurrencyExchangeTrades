@@ -1,12 +1,14 @@
-﻿namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade
+﻿using Domain.CurrencyExchange;
+
+namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade
 {
     public class CreateTradeUseCaseOutput
-    {
-        public Guid Id { get; private set; }
+    {        
+        public CurrencyExchangeTrade Trade { get; private set; }
 
-        public CreateTradeUseCaseOutput(Guid id)
+        public CreateTradeUseCaseOutput(CurrencyExchangeTrade currencyExchangeTrade)
         {
-            Id = id;
+            Trade = currencyExchangeTrade;
         }
     }
 }

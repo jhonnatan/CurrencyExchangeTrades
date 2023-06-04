@@ -1,5 +1,6 @@
 ﻿using Application.Boundaries;
 using Application.UseCases.CurrencyExchange.Trades.Simulate;
+using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.CurrencyExchange.Trades.Simulate
@@ -23,7 +24,8 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.Simulate
 
         public void Standard(SimulateTradeUseCaseOutput output)
         {
-            var response = new SimulateTradeResponse(output.ConvertedAmount);
+            var query = new Query(output.From, output.To, output.Amount);
+            var response = new SimulateTradeResponse(query, output.Rate, DateTime.UtcNow, output.ConvertedAmount);
             ViewModel = new OkObjectResult(response);
         }
     }

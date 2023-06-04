@@ -23,7 +23,7 @@ namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(LatestRates), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LatestRatesResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get([FromQuery] GetCurrencyExchangeRatesRequest request)
         {
