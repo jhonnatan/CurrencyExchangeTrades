@@ -7,6 +7,7 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.CreateTrade
         [Required]
         public Client Client { get; set; }
         [Required]
+        [RegularExpression("EUR", ErrorMessage = "CurrencyFrom must be 'EUR'. Limited License")]
         public string From { get; set; }
         [Required]
         public string To { get; set; }

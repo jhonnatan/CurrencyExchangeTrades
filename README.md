@@ -85,7 +85,7 @@ Set the docker-compose project as "Set as Startup Project" and press F5 (Startin
 
 To run via CMD:
 ``` To run via CMD
-docker-compose  -f "docker-compose.yml" -f "docker-compose.override.yml" up -d
+docker-compose  -f "docker-compose.yml" -f "docker-compose.override.yml" up --build -d
 ```
                                                                         
 <p align="center">  

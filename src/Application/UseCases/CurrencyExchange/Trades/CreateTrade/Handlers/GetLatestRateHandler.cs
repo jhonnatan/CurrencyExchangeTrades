@@ -24,8 +24,8 @@ namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade.Handlers
 
             if (latestRates == null || latestRates.Success == false)
             {
-                _outputPort.NotFound("You have provided one or more invalid Currency Codes. [Required format: currencies=EUR,USD,GBP,...]");
-                _logger.LogInformation("You have provided one or more invalid Currency Codes. [Required format: currencies=EUR,USD,GBP,...]");
+                _outputPort.NotFound("Base currency access restricted or you have provided one or more invalid currency codes. [Required format: currencies=EUR,USD,GBP,...]");
+                _logger.LogInformation("Base currency access restricted or you have provided one or more invalid currency codes. [Required format: currencies=EUR,USD,GBP,...]");
                 input.ErrorOccured = true;
                 return;
             }            
