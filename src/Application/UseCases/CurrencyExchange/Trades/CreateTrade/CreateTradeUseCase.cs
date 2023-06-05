@@ -20,7 +20,7 @@ namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade
             _checkClientTradesLimitHandler = checkClientTradesLimitHandler;
             _outputPort = outputPort;
             _logger = logger;
-
+            // configure handlers sequence: CheckClientTradesLimitHandler -> GetLatestRateHandler -> SaveExchangeTradeHandler
             _checkClientTradesLimitHandler.SetSucessor(getLatestRateHandler);
             getLatestRateHandler.SetSucessor(saveExchangeTradeHandler);
         }

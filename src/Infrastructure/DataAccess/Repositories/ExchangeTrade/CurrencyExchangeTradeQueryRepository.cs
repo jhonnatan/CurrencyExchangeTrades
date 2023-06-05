@@ -45,7 +45,7 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
 
         public async Task<int> GetTradesCountByClientIdLastHourAsync(Guid clientId)
         {
-            var query = "SELECT * FROM \"CurrencyExchange\".\"CurrencyExchangeTrades\" " +
+            var query = "SELECT COUNT(*) FROM \"CurrencyExchange\".\"CurrencyExchangeTrades\" " +
                 "WHERE \"ClientId\" = @ClientId " +
                 "and \"TransactionDate\" BETWEEN NOW() - INTERVAL '24 HOURS' AND NOW()";
 
@@ -54,7 +54,7 @@ namespace Infrastructure.DataAccess.Repositories.ExchangeTrade
 
             using (var connection = CreateConnection())
             {
-                return (await connection.QueryAsync<CurrencyExchangeTrade>(query, parameters)).Count();
+                return (await connection.QueryFirstOrDefaultAsync<int>(query, parameters));
             }
         }
     }

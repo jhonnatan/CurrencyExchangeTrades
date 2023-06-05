@@ -15,17 +15,10 @@ services:
     depends_on:
       - currency-exchange-trades-database
     networks:
-      - currency-exchange-trades-network
-
-    #environment:
-    #  - ASPNETCORE_ENVIRONMENT=Development
-    #  - ASPNETCORE_URLS=https://+:443;http://+:80
-    #ports:
-    #  - "80"
-    #  - "443"
-    #volumes:
-    #  - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-    #  - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - currency-exchange-trades-network     
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro 
  
   currency-exchange-trades-database:
     image: postgres
