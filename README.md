@@ -105,3 +105,54 @@ Swagger:
 http://localhost:5001/index.html     
 https://localhost:5002/index.html     
 ```
+
+# Highlights
+
+Clean Architecture
+<p align="center">  
+  <img src="https://github.com/jhonnatan/CurrencyExchangeTrades/blob/main/docs/CleanArchitecture.png" alt=CleanArchitecture" style="max-width:100%;">  
+</p>
+
+
+CQRS - (EF Core + Dapper)
+<p align="center">  
+  <img src="https://github.com/jhonnatan/CurrencyExchangeTrades/blob/main/docs/CQRS.png" alt=CQRS" style="max-width:100%;">  
+</p>
+
+
+CQRS
+<p align="center">  
+  <img src="https://github.com/jhonnatan/CurrencyExchangeTrades/blob/main/docs/CQRS.png" alt=CQRS" style="max-width:100%;">  
+</p>
+
+
+FluentValidation
+<p align="center">  
+  <img src="https://github.com/jhonnatan/CurrencyExchangeTrades/blob/main/docs/FluentValidation.png" alt=FluentValidation" style="max-width:100%;">  
+</p>
+
+
+FluentValidation
+<p align="center">  
+  <img src="https://github.com/jhonnatan/CurrencyExchangeTrades/blob/main/docs/FluentValidation.png" alt=FluentValidation" style="max-width:100%;">  
+</p>
+
+
+Unit Tests with XUnit
+<p align="center">  
+  <img src="https://github.com/jhonnatan/CurrencyExchangeTrades/blob/main/docs/UnitTests.png" alt=UnitTests" style="max-width:100%;">  
+</p>
+
+
+Swagger
+<p align="center">  
+  <img src="https://github.com/jhonnatan/CurrencyExchangeTrades/blob/main/docs/swagger.png" alt=swagger" style="max-width:100%;">  
+</p>
+
+
+Service with MemoryCache
+<p align="center">  
+  <img src="https://github.com/jhonnatan/CurrencyExchangeTrades/blob/main/docs/MemoryCache.png" alt=MemoryCache" style="max-width:100%;">  
+</p>
+
+
