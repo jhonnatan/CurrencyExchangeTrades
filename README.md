@@ -120,12 +120,6 @@ CQRS - (EF Core + Dapper):
 </p>
 
 
-CQRS:
-<p align="center">  
-  <img src="https://github.com/jhonnatan/CurrencyExchangeTrades/blob/main/docs/CQRS.png" alt=CQRS" style="max-width:100%;">  
-</p>
-
-
 FluentValidation:
 <p align="center">  
   <img src="https://github.com/jhonnatan/CurrencyExchangeTrades/blob/main/docs/FluentValidation.png" alt=FluentValidation" style="max-width:100%;">  
