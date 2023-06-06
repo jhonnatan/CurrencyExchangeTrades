@@ -1,26 +1,22 @@
 ﻿using Application.Boundaries;
 using Application.UseCases.CurrencyExchange.Trades.CreateTrade.Handlers;
-using Microsoft.Extensions.Logging;
 
 namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade
 {
     public class CreateTradeUseCase : ICreateTradeUseCase
     {
         private readonly CheckClientTradesLimitHandler _checkClientTradesLimitHandler;
-        private readonly IOutputPort<CreateTradeUseCaseOutput> _outputPort;
-        private readonly ILogger<CreateTradeUseCase> _logger;
+        private readonly IOutputPort<CreateTradeUseCaseOutput> _outputPort;        
 
         public CreateTradeUseCase(
             CheckClientTradesLimitHandler checkClientTradesLimitHandler,
             GetLatestRateHandler getLatestRateHandler,
             SaveExchangeTradeHandler saveExchangeTradeHandler,
-            IOutputPort<CreateTradeUseCaseOutput> outputPort,
-            ILogger<CreateTradeUseCase> logger)
+            IOutputPort<CreateTradeUseCaseOutput> outputPort)
         {
             _checkClientTradesLimitHandler = checkClientTradesLimitHandler;
-            _outputPort = outputPort;
-            _logger = logger;
-            // configure handlers sequence: CheckClientTradesLimitHandler -> GetLatestRateHandler -> SaveExchangeTradeHandler
+            _outputPort = outputPort;            
+            // Configure handlers sequence: CheckClientTradesLimitHandler -> GetLatestRateHandler -> SaveExchangeTradeHandler
             _checkClientTradesLimitHandler.SetSucessor(getLatestRateHandler);
             getLatestRateHandler.SetSucessor(saveExchangeTradeHandler);
         }
@@ -34,13 +30,11 @@ namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade
                 if (input.ErrorOccured)
                     return;
 
-                _outputPort.Standard(new CreateTradeUseCaseOutput(input.CurrencyExchangeTrade));
-                _logger.LogInformation("CreateTradeUseCase executed successfully");
+                _outputPort.Standard(new CreateTradeUseCaseOutput(input.CurrencyExchangeTrade));                
             }
             catch (Exception ex)
-            {
-                _logger.LogError($"An error occurred in the CreateTradeUseCase: {ex.Message}", ex.StackTrace);
-                _outputPort.Error($"An error occurred in the CreateTradeUseCase: {ex.Message}");
+            {                
+                _outputPort.Error($"An error occurred in the CreateTradeUseCase: {ex.Message}", ex.StackTrace);
             }
         }       
     }

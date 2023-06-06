@@ -7,9 +7,14 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrades
 {
     public class GetCurrencyExchangeTradesPresenter : IOutputPort<GetTradesUseCaseOutput>
     {
-        public IActionResult ViewModel { get; protected set; }
+        private readonly ILogger<GetCurrencyExchangeTradesPresenter> _logger;
 
-        public void Error(string message)
+        public IActionResult ViewModel { get; protected set; }
+        public GetCurrencyExchangeTradesPresenter(ILogger<GetCurrencyExchangeTradesPresenter> logger)
+        {
+            this._logger = logger;
+        }
+        public void Error(string message, string stackTrace)
         {
             var problemDetails = new ProblemDetails()
             {
@@ -17,10 +22,14 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrades
                 Detail = message
             };
             ViewModel = new BadRequestObjectResult(problemDetails);
+            _logger.LogError(message, stackTrace);
         }
 
         public void NotFound(string message)
-            => ViewModel = new NotFoundObjectResult(message);
+        {
+            ViewModel = new NotFoundObjectResult(message);
+            _logger.LogInformation(message);
+        }
 
         public void Standard(GetTradesUseCaseOutput output)
         {
@@ -38,6 +47,7 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrades
                     f.TransactionDate,
                     f.ConvertedAmount)));            
             ViewModel = new OkObjectResult(trades);
+            _logger.LogInformation("GetTradesUseCase executed successfully");
         }
     }
 }

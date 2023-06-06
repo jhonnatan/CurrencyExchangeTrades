@@ -1,22 +1,18 @@
 ﻿using Application.Boundaries;
 using Application.Services;
-using Microsoft.Extensions.Logging;
 
 namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade.Handlers
 {
     public class GetLatestRateHandler : Handler<CreateTradeUseCaseInput>
     {
         private readonly ICurrencyRatesService _currencyRatesService;
-        private readonly IOutputPort<CreateTradeUseCaseOutput> _outputPort;
-        private readonly ILogger<GetLatestRateHandler> _logger;
+        private readonly IOutputPort<CreateTradeUseCaseOutput> _outputPort;        
 
         public GetLatestRateHandler(ICurrencyRatesService currencyRatesService,
-            IOutputPort<CreateTradeUseCaseOutput> outputPort,
-            ILogger<GetLatestRateHandler> logger)
+            IOutputPort<CreateTradeUseCaseOutput> outputPort)
         {
             this._currencyRatesService = currencyRatesService;
-            this._outputPort = outputPort;
-            this._logger = logger;
+            this._outputPort = outputPort;            
         }
         public override async Task ProcessRequest(CreateTradeUseCaseInput input)
         {            
@@ -24,8 +20,7 @@ namespace Application.UseCases.CurrencyExchange.Trades.CreateTrade.Handlers
 
             if (latestRates == null || latestRates.Success == false)
             {
-                _outputPort.NotFound("Base currency access restricted or you have provided one or more invalid currency codes. [Required format: currencies=EUR,USD,GBP,...]");
-                _logger.LogInformation("Base currency access restricted or you have provided one or more invalid currency codes. [Required format: currencies=EUR,USD,GBP,...]");
+                _outputPort.NotFound("Base currency access restricted or you have provided one or more invalid currency codes. [Required format: currencies=EUR,USD,GBP,...]");                
                 input.ErrorOccured = true;
                 return;
             }            

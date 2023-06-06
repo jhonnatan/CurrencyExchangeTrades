@@ -1,21 +1,17 @@
 ﻿using Application.Boundaries;
 using Domain.Repositories.Query;
-using Microsoft.Extensions.Logging;
 
 namespace Application.UseCases.CurrencyExchange.Trades.GetTrades
 {
     public class GetTradesUseCase : IGetTradesUseCase
     {
-        private readonly IOutputPort<GetTradesUseCaseOutput> _outputPort;
-        private readonly ILogger<GetTradesUseCase> _logger;
+        private readonly IOutputPort<GetTradesUseCaseOutput> _outputPort;        
         private readonly ICurrencyExchangeTradeQueryRepository _queryRepository;
 
-        public GetTradesUseCase(IOutputPort<GetTradesUseCaseOutput> outputPort,
-            ILogger<GetTradesUseCase> logger,
+        public GetTradesUseCase(IOutputPort<GetTradesUseCaseOutput> outputPort,            
             ICurrencyExchangeTradeQueryRepository queryRepository)
         {
-            this._outputPort = outputPort;
-            this._logger = logger;
+            this._outputPort = outputPort;            
             this._queryRepository = queryRepository;
         }
         public async Task Execute(GetTradesUseCaseInput input)
@@ -23,13 +19,11 @@ namespace Application.UseCases.CurrencyExchange.Trades.GetTrades
             try
             {
                 var exchangeTrades = await _queryRepository.GetExchangeTradesByClientIdAsync(input.ClientId);
-                _outputPort.Standard(new GetTradesUseCaseOutput(exchangeTrades.ToList()));
-                _logger.LogInformation("GetTradesUseCase executed successfully");
+                _outputPort.Standard(new GetTradesUseCaseOutput(exchangeTrades.ToList()));                
             }
             catch (Exception ex)
-            {
-                _logger.LogError($"An error occurred in the GetTradesUseCase: {ex.Message}", ex.StackTrace);
-                _outputPort.Error($"An error occurred in the GetTradesUseCase: {ex.Message}");
+            {                
+                _outputPort.Error(ex.Message, ex.StackTrace);
             }
         }
     }

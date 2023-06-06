@@ -2,6 +2,7 @@
 using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrade
@@ -24,7 +25,9 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrade
         }
         
         [HttpGet]
-        [ProducesResponseType(typeof(CurrencyExchangeTradesResponse), StatusCodes.Status200OK)]        
+        [ProducesResponseType(typeof(CurrencyExchangeTradesResponse), StatusCodes.Status200OK)]
+        [SwaggerOperation(Summary = "Get a currency exchange trade by id",
+            Description = "Get a currency exchange trade by id")]
         public async Task<IActionResult> GetTrade([FromQuery][Required] Guid id)
         {
             _logger.LogInformation($"GetCurrencyExchangeTradeById Requested at {DateTime.UtcNow}");

@@ -1,6 +1,7 @@
 ﻿using Application.UseCases.CurrencyExchange.Trades.GetTrades;
 using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrades
@@ -21,10 +22,12 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.GetTrades
             this._presenter = presenter;
             this._getTradesUseCase = getTradeUseCase;
         }
-        // GET api/<CurrencyExchangeTradesController>/5
+        
         [HttpGet("GetByClientId")]
         [ProducesResponseType(typeof(List<CurrencyExchangeTradesResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Get currency exchange trades by clientId",
+            Description = "Get currency exchange trades by clientId")]
         public async Task<IActionResult> GetTrades([FromQuery][Required] Guid clientId)
         {
             _logger.LogInformation($"GetCurrencyExchangeTradesByClientId Requested at {DateTime.UtcNow}");

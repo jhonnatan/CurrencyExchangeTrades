@@ -1,6 +1,7 @@
 ﻿using Application.UseCases.CurrencyExchange.Trades.CreateTrade;
 using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace WebApi.Controllers.CurrencyExchange.Trades.CreateTrade
 {
@@ -25,6 +26,8 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.CreateTrade
         [ProducesResponseType(typeof(CreateExchangeTradeResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Register currency exchange trades carried out by its clients",
+            Description = "Register currency exchange trades carried out by its clients")]
         public async Task<IActionResult> CreateTrade([FromBody] CreateCurrencyExchangeTradeRequest request)
         {
             _logger.LogInformation($"CreateCurrencyExchangeTrade Executed at {DateTime.UtcNow}");

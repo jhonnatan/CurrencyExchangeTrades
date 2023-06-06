@@ -6,9 +6,15 @@ namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
 {
     public class GetCurrencytExchangeRatesPresenter : IOutputPort<GetExchangeRatesOutput>
     {
+        private readonly ILogger<GetCurrencytExchangeRatesPresenter> _logger;
         public IActionResult ViewModel { get; protected set; }
 
-        public void Error(string message)
+        public GetCurrencytExchangeRatesPresenter(ILogger<GetCurrencytExchangeRatesPresenter> logger)
+        {
+            this._logger = logger;            
+        }
+
+        public void Error(string message, string stackTrace)
         {
             var problemDetails = new ProblemDetails()
             {
@@ -16,11 +22,14 @@ namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
                 Detail = message
             };
             ViewModel = new BadRequestObjectResult(problemDetails);
+            _logger.LogError(message, stackTrace);
         }
 
         public void NotFound(string message)
-            => ViewModel = new NotFoundObjectResult(message);
-
+        {
+            ViewModel = new NotFoundObjectResult(message);
+            _logger.LogInformation(message);
+        }
         public void Standard(GetExchangeRatesOutput output)
         {
             GetCurrencyExchangeRatesResponse response = new(
@@ -30,6 +39,7 @@ namespace WebApi.Controllers.CurrencyExchange.Rates.GetExchangeRates
                 output.LatestRates.Date,
                 output.LatestRates.Rates);
             ViewModel = new OkObjectResult(response);
+            _logger.LogInformation("GetExchangeRatesUseCase executed successfully");
         }
 
     }

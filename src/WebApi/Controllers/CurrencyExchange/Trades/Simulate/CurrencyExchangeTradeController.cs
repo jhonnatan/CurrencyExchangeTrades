@@ -1,6 +1,7 @@
 ﻿using Application.UseCases.CurrencyExchange.Trades.Simulate;
 using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace WebApi.Controllers.CurrencyExchange.Trades.Simulate
 {
@@ -24,6 +25,8 @@ namespace WebApi.Controllers.CurrencyExchange.Trades.Simulate
         [HttpGet("Simulate")]
         [ProducesResponseType(typeof(SimulateTradeResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [SwaggerOperation(Summary = "Simulate currency exchange trades",
+            Description = "Simulate currency exchange trades without any register")]
         public async Task<IActionResult> Simulate([FromQuery] SimulateTradeRequest request)
         {
             _logger.LogInformation($"SimulateTrade Requested at {DateTime.UtcNow}");
